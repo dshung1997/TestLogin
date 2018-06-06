@@ -17,27 +17,43 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-    });
+    // this.authService.authState.subscribe((user) => {
+    //   this.user = user;
+    //   this.loggedIn = (user != null);
+    // });
+    if(window.localStorage.getItem('user'))
+    {
+      let jsonUser = window.localStorage.getItem('user');
+      if(jsonUser !== 'undefined')
+      {
+        this.user = JSON.parse(jsonUser);
+      }
+    }
   }
  
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( data => {
-
-      console.log("data: ", data);
+      // console.log("data: ", data);
+      this.user = data;
+      this.saveLocal();
     });
   }
  
   signInWithFacebook(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( data => {
-
-      console.log("data: ", data);
+      // console.log("data: ", data);
+      this.user = data;
+      this.saveLocal();
     });
   }
  
   signOut(): void {
     this.authService.signOut();
+    window.localStorage.clear();
+  }
+
+  saveLocal(): void {
+    window.localStorage.clear();
+    localStorage.setItem("user", JSON.stringify(this.user));
   }
 }
