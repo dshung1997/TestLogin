@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService, SocialUser } from "angular4-social-login";
-import {  GoogleLoginProvider } from "angular4-social-login";
+import { AuthService, SocialUser } from "angularx-social-login";
+import {  GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
 
 @Component({
@@ -24,16 +24,20 @@ export class AppComponent implements OnInit {
   }
  
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( data => {
+
+      console.log("data: ", data);
+    });
   }
  
-  // signInWithFB(): void {
-  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  // }
+  signInWithFacebook(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( data => {
+
+      console.log("data: ", data);
+    });
+  }
  
   signOut(): void {
     this.authService.signOut();
   }
-
-  
 }
