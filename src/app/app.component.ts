@@ -11,7 +11,7 @@ import {  GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-log
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  private user: SocialUser;
+  user: SocialUser;
   private loggedIn: boolean;
 
   constructor(private authService: AuthService) { }
