@@ -50,6 +50,7 @@ export class AppComponent implements OnInit {
   signOut(): void {
     this.authService.signOut();
     window.localStorage.clear();
+    this.user = null;
   }
 
   saveLocal(): void {
